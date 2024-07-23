@@ -1,29 +1,49 @@
 const express = require('express');
 const router = express.Router();
+const mysql = require('mysql2');
+const knex = require('../db/knex');
 
-let todos = [];
-let tests = [];
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'todo_app'
+});
 
 router.get('/', function (req, res, next) {
-  res.render('index', {
-    title: 'ToDo App',
-    todos: todos,
-    tests: tests,
-  });
+  knex("tests")
+    .select("*")
+    .then(function (results) {
+      console.log(results);
+      res.render('index', {
+        title: 'ToDo App',
+        todos: results,
+      });
+    })
+    .catch(function (err) {
+      console.error(err);
+      res.render('index', {
+        title: 'ToDo App',
+      });
+    });
 });
 
 router.post('/', function (req, res, next) {
-  const todo = req.body.todo;
-  todos.push(todo);
-  res.redirect('/');
+  const todo = req.body.add;
+  knex("tests")
+  .insert({user_id: 1, content: todo})
+  .then(function () {
+    res.redirect('/')
+  })
+  .catch(function (err) {
+    console.error(err);
+    res.render('index', {
+      title: 'ToDo App',
+    });
+  });
 });
-
-router.post('/test', function (req, res, next) {
-  const test = req.body.test;
-  tests.push(test);
-  res.redirect('/');
-});
-
 
 
 module.exports = router;
+
