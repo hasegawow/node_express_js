@@ -12,27 +12,41 @@ const connection = mysql.createConnection({
 });
 
 router.get('/', function (req, res, next) {
-  knex("tests")
+  const userId = req.session.userid;
+  const isAuth = Boolean(userId);
+  console.log(`isAuth: ${isAuth}`);
+
+
+  knex("tasks")
     .select("*")
     .then(function (results) {
       console.log(results);
       res.render('index', {
         title: 'ToDo App',
         todos: results,
+        isAuth: isAuth,
       });
     })
     .catch(function (err) {
       console.error(err);
       res.render('index', {
         title: 'ToDo App',
+        isAuth: isAuth,
       });
     });
 });
 
 router.post('/', function (req, res, next) {
-  const todo = req.body.add;
-  knex("tests")
-  .insert({user_id: 1, content: todo})
+  const title = req.body.title;
+  const detail = req.body.detail;
+  const userId = req.session.userid;
+
+  console.log('Title:', title);
+  console.log('Detail:', detail);
+  console.log('User ID:', userId);
+
+  knex("tasks")
+  .insert({user_id: userId, title: title, detail: detail})
   .then(function () {
     res.redirect('/')
   })
@@ -44,6 +58,9 @@ router.post('/', function (req, res, next) {
   });
 });
 
+router.use('/signup', require('./signup'));
+router.use('/signin', require('./signin'));
+router.use('/logout', require('./logout'));
 
 module.exports = router;
 

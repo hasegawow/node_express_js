@@ -1,0 +1,20 @@
+body {
+    background-color: #3F4B3B;
+}
+
+.main {
+    background-color: #3F4B3B;
+    height: 800px;
+    width: 760px;
+    float: right;
+}
+
+.main-form {
+    margin-top: 180px;
+    margin-left: 270px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

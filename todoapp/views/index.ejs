@@ -2,20 +2,48 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/index.css' />
   </head>
   <body>
-    <h1>Welcome to <%= title %></h1>
+    <% if(isAuth) { %>
+      <div class="header">
+        <h1 class="title">Todo</h1>
+        <a class="logout" href="logout">ログアウト</a>
+      </div>
+      <div class="main">
+        <div class="left">
+          <form action="/" method="post">
+            <label class="task">タスクの追加</label>
+            <br>
+            <input required type="text" name="title" placeholder="何をする?"/>
+            <br>
+            <input required type="text" name="detail" placeholder="詳細">
+            <input type="submit" value="追加"/>
+          </form>
+        </div>
+        <div class="content">
+          <div class="header2">
+            <p class="plus">タブを追加</p>
+            <p class="tab">tab</p>
+          </div>
+          <% for(let todo of todos){ %>
+            <div class="todo">
+              <p class="todo-title"><%= todo.title %></p>
+              <p class="todo-detail"><%= todo.detail %></p>
+            </div>
+          <% } %>
+        </div>
+      </div>
 
-    <form action="/" method="post">
-      <label>タスクの追加</label>
-      <input required type="text" name="add" placeholder="何をする?"/>
-      <input type="submit" value="追加"/>
-    </form>
 
-    <% for(let todo of todos){ %>
-      <li><span><%= todo.content %></span></li>
+    <% } else { %>
+      <h1>Welcome to the TodoApp</h1>
+      <a href="/signup">Sign up now!</a>
     <% } %>
 
-  </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    </body>
 </html>
