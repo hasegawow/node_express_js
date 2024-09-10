@@ -2,10 +2,60 @@ body {
     background-color: #3F4B3B;
 }
 
+.zukei {
+    background-color: #FFFFFF;
+    height: 780px;
+    width: 50vw;
+    float: left;
+    font-size: 100px;
+    font-weight: bold;
+}
+
+h1 {
+    color: #5CAB7D;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.error {
+    font-weight: bold;
+    color: rgb(255, 0, 0);
+}
+
+.form-label-name {
+    color: #EFFFE9;
+    margin-right: 74px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.form-label-pass {
+    color: #EFFFE9;
+    margin-top: 20px;
+    margin-right: 58px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.form-label-repass {
+    color: #EFFFE9;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.submit {
+    background-color: #5CAB7D;
+    margin-top: 30px;
+    padding: 5px 43px;
+}
+
 .main {
     background-color: #3F4B3B;
-    height: 800px;
-    width: 760px;
+    height: 50vw;
+    width: 50vw;
     float: right;
 }
 
@@ -14,7 +64,6 @@ body {
     margin-left: 270px;
 }
 
-* {
-    margin: 0;
-    padding: 0;
+.signup {
+    font-size: 11px;
 }

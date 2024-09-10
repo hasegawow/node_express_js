@@ -13,15 +13,19 @@
     <div class="main">
         <div class="main-form">
             <h1><%= title %></h1>
-            <p><%= errorMessage%></p>
+            <p class="error"><%= errorMessage%></p>
             <form action="/signin" method="post">
-                <label>ユーザ名</label>
-                <input required type="text" name="username"/>
+                <label class="form-label-name">ユーザ名</label>
                 <br>
-                <label>パスワード</label>
-                <input required type="password" name="password"/>
+                <input class="form-input" required type="text" name="username"/>
                 <br>
-                <input type="submit" value="Sign in"/>
+                <label class="form-label-pass">パスワード</label>
+                <br>
+                <input class="form-input" required type="password" name="password"/>
+                <br>
+                <a class="signup" href="/signup">アカウントをお持ちでない方</a>
+                <br>
+                <input class="submit" type="submit" value="Sign in"/>
             </form>
         </div>
     </div>

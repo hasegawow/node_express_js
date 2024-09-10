@@ -19,22 +19,28 @@ router.get('/', function (req, res, next) {
 
   knex("tasks")
     .select("*")
-    .then(function (results) {
-      console.log(results);
-      res.render('index', {
-        title: 'ToDo App',
-        todos: results,
-        isAuth: isAuth,
-      });
+    .then(function (tasks) {
+      knex("tabs")
+        .select("*")
+        .then(function (tabs) {
+          res.render('index', {
+            tasks: tasks,
+            tabs: tabs,
+            isAuth: isAuth,
+            title: 'Just do it !!',
+        });
+      })
     })
+
+
     .catch(function (err) {
       console.error(err);
       res.render('index', {
-        title: 'ToDo App',
+        title: 'Just do it !!',
         isAuth: isAuth,
       });
-    });
-});
+    })
+})
 
 router.post('/', function (req, res, next) {
   const title = req.body.title;
@@ -61,6 +67,8 @@ router.post('/', function (req, res, next) {
 router.use('/signup', require('./signup'));
 router.use('/signin', require('./signin'));
 router.use('/logout', require('./logout'));
+router.use('/delete', require('./delete'));
+router.use('/tab', require('./tab'));
 
 module.exports = router;
 

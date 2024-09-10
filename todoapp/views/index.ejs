@@ -8,32 +8,55 @@
   <body>
     <% if(isAuth) { %>
       <div class="header">
-        <h1 class="title">Todo</h1>
+        <h1 class="title">Just do it !!</h1>
         <a class="logout" href="logout">ログアウト</a>
       </div>
       <div class="main">
         <div class="left">
-          <form action="/" method="post">
+          <form class="tasks" action="/" method="post">
             <label class="task">タスクの追加</label>
             <br>
-            <input required type="text" name="title" placeholder="何をする?"/>
+            <input class="title-add" required type="text" name="title" placeholder="何をする?"/>
             <br>
-            <input required type="text" name="detail" placeholder="詳細">
+            <input class="detail-add" required type="text" name="detail" placeholder="詳細">
+            <br>
             <input type="submit" value="追加"/>
           </form>
         </div>
         <div class="content">
           <div class="header2">
-            <p class="plus">タブを追加</p>
-            <p class="tab">tab</p>
+            <button id="plus">＋</button>
+            <% for(let tab of tabs){ %>
+              <a id="tab" href="#<%= tab.id %>"><%= tab.name %></a>
+            <% } %>
           </div>
-          <% for(let todo of todos){ %>
-            <div class="todo">
-              <p class="todo-title"><%= todo.title %></p>
-              <p class="todo-detail"><%= todo.detail %></p>
-            </div>
-          <% } %>
+          <div class="title-detail-delete">
+            <span class="span-title">タスク</span>
+            <span class="span-detail">詳細</span>
+          </div>
+          <div class="scroll">
+            <% for(let task of tasks){ %>
+              <div id="todo">
+                <p class="todo-title"><%= task.title %></p>
+                <p class="todo-detail"><%= task.detail %></p>
+                <p><%= task.name %></p>
+                <form class="delete" action="/delete" method="post">
+                  <input type="hidden" name="id" value="<%= task.id %>">
+                  <button class="todo-delete" type="submit"><img src="./images/ten.png" width="15px" height="15px"></button>
+                </form>
+              </div>
+            <% } %>
+          </div>
         </div>
+      </div>
+      <div id="plus-form" class="hidden">
+        <form action="/tab" method="post">
+          <label>タブ名</label>
+          <br>
+          <input class="plus-form-input" required type="text" name="plus">
+          <br>
+          <button class="plus-form-bottun" type="submit">作成</button>
+        </form>
       </div>
 
 
@@ -45,5 +68,53 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    </body>
+    <script>
+      document.getElementById('plus').addEventListener('click', function () {
+        var form = document.getElementById('plus-form');
+        if (form.style.display === 'none') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+
+
+    });
+    </script>
+  </body>
 </html>
+
+
+
+<script type="text/javascript">
+
+  var tabs = document.getElementById('tab').getElementsByTagName('a');
+  var pages = document.getElementById('tabbody').getElementsByTagName('div');
+
+  function changeTab() {
+
+    var targetid = this.href.substring(this.href.indexOf('#') + 1, this.href.length);
+
+    for (var i = 0; i < pages.length; i++) {
+      if (pages[i].id != targetid) {
+        pages[i].style.display = "none";
+      }
+      else {
+        pages[i].style.display = "block";
+      }
+    }
+
+    for (var i = 0; i < tabs.length; i++) {
+      tabs[i].style.zIndex = "0";
+    }
+    this.style.zIndex = "10";
+
+    return false;
+  }
+
+  for (var i = 0; i < tabs.length; i++) {
+    tabs[i].onclick = changeTab;
+  }
+
+  tabs[0].onclick();
+
+</script>
