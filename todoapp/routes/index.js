@@ -45,14 +45,16 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
   const title = req.body.title;
   const detail = req.body.detail;
+  const category = req.body.category;
   const userId = req.session.userid;
 
   console.log('Title:', title);
   console.log('Detail:', detail);
+  console.log('Category:', category);
   console.log('User ID:', userId);
 
   knex("tasks")
-  .insert({user_id: userId, title: title, detail: detail})
+  .insert({user_id: userId, title: title, detail: detail, category: category})
   .then(function () {
     res.redirect('/')
   })

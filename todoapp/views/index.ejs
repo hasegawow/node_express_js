@@ -20,6 +20,12 @@
             <br>
             <input class="detail-add" required type="text" name="detail" placeholder="詳細">
             <br>
+            <select class="category-add" required name="category">
+              <% for(let tab of tabs){ %>
+                <option><%= tab.name %></option>
+              <% } %>
+            </select>
+            <br>
             <input type="submit" value="追加"/>
           </form>
         </div>
@@ -27,7 +33,7 @@
           <div class="header2">
             <button id="plus">＋</button>
             <% for(let tab of tabs){ %>
-              <a id="tab" href="#<%= tab.id %>"><%= tab.name %></a>
+              <a id="tab" href="#<%= tab.name %>"><%= tab.name %></a>
             <% } %>
           </div>
           <div class="title-detail-delete">
