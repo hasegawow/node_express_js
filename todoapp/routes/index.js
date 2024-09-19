@@ -15,6 +15,7 @@ router.get('/', function (req, res, next) {
     .select("*")
     .then(function (tasks) {
       knex("tabs")
+        .where("user_id", userId)
         .select("*")
         .then(function (tabs) {
           res.render('index', {
