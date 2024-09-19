@@ -10,10 +10,11 @@ router.post('/', function(req, res, next){
     console.log(`isAuth: ${isAuth}`);
 
     knex("tasks")
-        .where({ category:category })
+        .where({ category:category, user_id: userId })
         .select("*")
         .then(function(tasks) {
             knex("tabs")
+                .where({ user_id: userId})
                 .select("*")
                 .then(function (tabs) {
                     res.render("index", {
