@@ -1,0 +1,70 @@
+body {
+    background-color: #3F4B3B;
+}
+
+.zukei {
+    background-color: #FFFFFF;
+    height: 100vh;
+    width: 50vw;
+    float: left;
+    font-size: 100px;
+    font-weight: bold;
+}
+
+h1 {
+    color: #cad;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.error {
+    font-weight: bold;
+    color: rgb(255, 0, 0);
+}
+
+.form-label-name {
+    color: #EFFFE9;
+    margin-right: 74px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.form-label-pass {
+    color: #EFFFE9;
+    margin-top: 20px;
+    margin-right: 58px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.form-label-repass {
+    color: #EFFFE9;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 0px;
+    font-size: 15px;
+}
+
+.submit {
+    background-color: #cad;
+    margin-top: 30px;
+    padding: 5px 65px;
+    color: white;
+}
+
+.main {
+    background-color: rgb(109, 69, 129);
+    height: 100vh;
+    width: 50vw;
+    float: right;
+}
+
+.main-form {
+    margin-top: 180px;
+    margin-left: 270px;
+}
+
+.signup {
+    font-size: 11px;
+}

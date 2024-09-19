@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+  </head>
+  <body>
+    <% if(isAuth) { %>
+      <div class="header">
+        <h1 class="title">Just do it !!</h1>
+        <a class="logout" href="logout">ログアウト</a>
+      </div>
+      <div class="main">
+        <div class="left">
+          <form class="tasks" action="/" method="post">
+            <label class="task">タスクの追加</label>
+            <br>
+            <input class="title-add" required type="text" name="title" placeholder="何をする?"/>
+            <br>
+            <input class="detail-add" required type="text" name="detail" placeholder="詳細">
+            <br>
+            <select class="category-add" name="category">
+              <% for(let tab of tabs){ %>
+                <option><%= tab.name %></option>
+              <% } %>
+            </select>
+            <br>
+            <input class="submit" type="submit" value="追加"/>
+          </form>
+        </div>
+        <div class="content">
+          <div class="header2">
+            <button id="plus">＋</button>
+            <% for(let tab of tabs){ %>
+              <div class="header3">
+                <form action="/category" method="POST">
+                  <input type="hidden" name="category" value="<%= tab.name %>">
+                  <button type="submit" class="tab"><%= tab.name %></button>
+                </form>
+                <form action="/cate_dele" method="POST">
+                  <input type="hidden" name="category_name" value="<%= tab.name %>">
+                  <button class="category-delete" type="submit">✕</button>
+                </form>
+              </div>
+            <% } %>
+          </div>
+          <div class="title-detail-delete">
+            <span class="span-title">タスク</span>
+            <span class="span-detail">詳細</span>
+          </div>
+          <div class="scroll">
+            <% for(let task of tasks){ %>
+              <div id="todo">
+                <p class="todo-title"><%= task.title %></p>
+                <p class="todo-detail"><%= task.detail %></p>
+                <p><%= task.name %></p>
+
+                <div class="edit" >
+                  <button class="task-edit" type="submit"><img src="./images/edit.png" width="20px" height="20px"></button>
+                </div>
+
+                <div class="delete">
+                  <form action="/delete" method="post">
+                    <input type="hidden" name="id" value="<%= task.id %>">
+                    <button class="task-delete" type="submit"><img src="./images/trash2.png" width="20px" height="20px"></button>
+                  </form>
+                </div>
+                <dialog class="dialog-edit">
+                  <form action="/edit" method="post">
+                    <label class="h1-edit">タスクの編集</label>
+                    <br>
+                    <input class="title-edit" required type="text" name="title" placeholder="何をする?" value="<%= task.title %>">
+                    <br>
+                    <input class="detail-edit" required type="text" name="detail" placeholder="詳細" value="<%= task.detail %>">
+                    <br>
+                    <select class="category-edit" name="category">
+                      <% for(let tab of tabs){ %>
+                        <option value="<%= task.category %>"><%= tab.name %></option>
+                      <% } %>
+                    </select>
+                    <input type="hidden" name="taskid" value="<%= task.id %>">
+                    <br>
+                    <input class="submit" type="submit" value="変更"/>
+                    <input class="cancel" type="button" value="キャンセル">
+                  </form>
+                </dialog>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div id="plus-form" class="hidden">
+        <form action="/tab" method="post">
+          <label>タブ名</label>
+          <br>
+          <input class="plus-form-input" required type="text" name="plus" placeholder="タブ名を入力">
+          <br>
+          <button class="plus-form-bottun" type="submit">作成</button>
+        </form>
+      </div>
+
+    <% } else { %>
+      <h1>Welcome to the TodoApp</h1>
+      <a href="/signup">Sign up now!</a>
+    <% } %>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script>
+      document.getElementById('plus').addEventListener('click', function () {
+        var form = document.getElementById('plus-form');
+        if (form.style.display === 'none') {
+            form.style.display = 'block';
+        } else {
+            form.style.display = 'none';
+        }
+      });
+
+      const showDialogButtons = document.querySelectorAll('.task-edit');
+    const dialogs = document.querySelectorAll('.dialog-edit');
+    const closeDialogButtons = document.querySelectorAll('.cancel');
+
+    showDialogButtons.forEach((button, index) => {
+      button.addEventListener('click', function() {
+        dialogs[index].showModal();
+      });
+    });
+
+    closeDialogButtons.forEach((button, index) => {
+      button.addEventListener('click', function() {
+        dialogs[index].close();
+      });
+    });
+    </script>
+  </body>
+</html>
