@@ -4,6 +4,7 @@
 }
 
 body {
+  overflow: hidden;
   background-color: #cad;
 }
 
@@ -39,7 +40,7 @@ body {
 .left {
   display: flex;
   flex-direction: column;
-  height: 710px;
+  height: 91.5vh;
   width: 300px;
   background-color: rgb(175, 136, 194);
 }
@@ -47,6 +48,9 @@ body {
 .task {
   color: #ffffff;
   margin-top: 30px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 30px;
 }
 
 .title-detail-delete {
@@ -84,8 +88,14 @@ body {
   background: transparent;
   color: white;
   width: 230px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   padding: 3px;
+}
+
+.title-add:focus {
+  border-right:  solid 1px rgb(181, 0, 0);
+  border-left: solid 1px rgb(181, 0, 0);
+  border-bottom: solid 1px rgb(181, 0, 0);
 }
 
 ::placeholder {
@@ -101,13 +111,51 @@ body {
   background: transparent;
   color: white;
   width: 230px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   padding: 3px;
 }
 
-.delete {
-  padding: 10px 26px 10px 22px;
-  border-bottom: solid 1px;
+.detail-add:focus {
+  border-right:  solid 1px rgb(181, 0, 0);
+  border-left: solid 1px rgb(181, 0, 0);
+  border-bottom: solid 1px rgb(181, 0, 0);
+}
+
+.category-add {
+  color: white;
+  background: transparent;
+  width: 230px;
+  text-overflow: ellipsis;
+  border: none;
+  border-bottom: solid 1px black;
+  margin-bottom: 30px;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.category-add:focus {
+  border-bottom: solid 1px rgb(181, 0, 0);
+}
+
+.category-add:focus {
+  outline: none;
+}
+
+.category-delete {
+  padding: 2px 8px 2px 8px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: white;
+}
+
+.category-delete:focus {
+  outline: none;
+}
+
+.category-delete:hover {
+  background-color: rgba(250, 250, 250, 0.211);
+  border-radius: 100px;
 }
 
 .tasks {
@@ -123,10 +171,132 @@ body {
   padding: 0px;
 }
 
+.task-edit {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 100px;
+  padding: 2px 5px 6px 5px;
+}
+
+.task-edit:focus {
+  outline: none;
+}
+
+.task-edit:hover {
+  background-color: #ffffff2f;
+}
+
+.edit {
+  padding: 5px;
+  border: none;
+  border-bottom: solid 1px white;
+}
+
+.task-delete {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  border-radius: 100px;
+  padding: 2px 5px 6px 5px;
+}
+
+.task-delete:focus {
+  outline: none;
+}
+
+.task-delete:hover {
+  background-color: #ffffff2f;
+}
+
+.dialog-edit {
+  border: none;
+  height: 500px;
+  width: 700px;
+  margin-left: 400px;
+  margin-top: 100px;
+  padding: 70px 0px 0px 160px;
+  border-radius: 20px;
+  box-shadow:0 10px 25px 0 rgba(0, 0, 0, .5);
+  background-color: #be8fd9;
+}
+
+.h1-edit {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+}
+
+.title-edit {
+  width: 360px;
+  margin-bottom: 40px;
+  outline: none;
+  border-top: none;
+  border-right:  solid 1px black;
+  border-left: solid 1px black;
+  border-bottom: solid 1px black;
+  background: transparent;
+  color: black;
+  padding: 3px;
+  color: white;
+}
+
+.title-edit:focus {
+  border-right:  solid 1px rgb(181, 0, 0);
+  border-left: solid 1px rgb(181, 0, 0);
+  border-bottom: solid 1px rgb(181, 0, 0);
+}
+
+.detail-edit {
+  width: 360px;
+  margin-bottom: 40px;
+  outline: none;
+  border-top: none;
+  border-right:  solid 1px black;
+  border-left: solid 1px black;
+  border-bottom: solid 1px black;
+  background: transparent;
+  color: black;
+  padding: 3px;
+  color: white;
+}
+
+.detail-edit:focus {
+  border-right:  solid 1px rgb(181, 0, 0);
+  border-left: solid 1px rgb(181, 0, 0);
+  border-bottom: solid 1px rgb(181, 0, 0);
+}
+
+
+.category-edit {
+  color: white;
+  background: transparent;
+  width: 360px;
+  text-overflow: ellipsis;
+  border: none;
+  border-bottom: solid 1px black;
+  margin-bottom: 40px;
+  cursor: pointer;
+  padding: 3px;
+}
+
+.category-edit:focus {
+  border-bottom: solid 1px rgb(181, 0, 0);
+  outline: none;
+}
+
+.delete {
+  padding: 5px;
+  border-bottom: solid 1px white;
+}
+
 .scroll {
   overflow: scroll;
   height: 640px;
   width: 1170px;
+  z-index: 2;
 }
 
 .todo-title {
@@ -141,19 +311,9 @@ body {
 .todo-detail {
   margin-bottom: 0px;
   padding: 10px;
-  width: 595px;
+  width: 590px;
   border-bottom: solid 1px;
-}
-
-.todo-delete {
-  border: none;
-  background: transparent;
-  padding: 0px 6px 4px 6px;
-  border-radius: 100px;
-}
-
-.todo-delete:hover {
-  background-color: #ffffff60;
+  text-overflow: ellipsis;
 }
 
 a {
@@ -181,15 +341,22 @@ a {
   border-radius: 100px;
 }
 
-#tab {
+.tab {
   color: #ffffff;
-  background-color: rgb(157, 113, 180);
+  background: transparent;
   height: 30px;
-  width: auto;
+  width: 114px;
   text-align: center;
   margin-bottom: 0px;
   border-right: solid 1px;
   padding: 4px;
+  border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab:focus {
+  outline: none;
 }
 
 .content {
@@ -201,10 +368,19 @@ a {
   display: flex;
 }
 
+.header3 {
+  background-color: rgba(149, 105, 175, 0.573);
+  display: flex;
+}
+
+.header3:hover {
+  background-color: rgba(0, 0, 0, 0.256);
+}
+
 #plus-form {
   color: #FFFFFF;
-  margin-top: -600px;
-  margin-left: 400px;
+  margin-top: -700px;
+  margin-left: 300px;
   padding: 20px;
   z-index: 3;
   position: relative;
@@ -212,7 +388,7 @@ a {
   width: 200px;
   border-radius: 20px;
   box-shadow:0 10px 25px 0 rgba(0, 0, 0, .5);
-  background-color: #3F4B3B;
+  background-color: #b068dae1;
   box-sizing: content-box;
 }
 
@@ -222,8 +398,27 @@ a {
 
 .plus-form-input {
   margin-bottom: 10px;
+  outline: none;
+  border-top: none;
+  border-right:  solid 1px black;
+  border-left: solid 1px black;
+  border-bottom: solid 1px black;
+  background: transparent;
+  color: white;
+  width: 200px;
+  padding: 3px;
 }
 
-.plus-form-button {
+.plus-form-input:focus {
+  outline: none;
+}
+
+.plus-form-bottun {
   margin-top: 10px;
+  border: none;
+  outline: none;
+}
+
+.plus-form-button:focus {
+  outline: none;
 }

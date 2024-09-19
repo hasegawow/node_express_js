@@ -1,7 +1,7 @@
 
 .main {
-    background-color: #3F4B3B;
-    height: 800px;
+    background-color: rgb(109, 69, 129);
+    height: 100vh;
     width: 50vw;
     float: right;
 }
@@ -12,7 +12,7 @@
 }
 
 h1 {
-    color: #5CAB7D;
+    color: #cad;
     font-weight: bold;
     margin-left: 20px;
     margin-bottom: 20px;
@@ -47,14 +47,15 @@ h1 {
 }
 
 .submit {
-    background-color: #5CAB7D;
+    background-color: #cad;
     margin-top: 30px;
     padding: 5px 43px;
+    color: white;
 }
 
 .zukei {
     background-color: #FFFFFF;
-    height: 500px;
+    height: 100vh;
     width: 50vw;
     float: left;
     font-size: 100px;

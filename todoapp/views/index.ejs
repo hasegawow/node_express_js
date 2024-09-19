@@ -20,20 +20,29 @@
             <br>
             <input class="detail-add" required type="text" name="detail" placeholder="詳細">
             <br>
-            <select class="category-add" required name="category">
+            <select class="category-add" name="category">
               <% for(let tab of tabs){ %>
                 <option><%= tab.name %></option>
               <% } %>
             </select>
             <br>
-            <input type="submit" value="追加"/>
+            <input class="submit" type="submit" value="追加"/>
           </form>
         </div>
         <div class="content">
           <div class="header2">
             <button id="plus">＋</button>
             <% for(let tab of tabs){ %>
-              <a id="tab" href="#<%= tab.name %>"><%= tab.name %></a>
+              <div class="header3">
+                <form action="/category" method="POST">
+                  <input type="hidden" name="category" value="<%= tab.name %>">
+                  <button type="submit" class="tab"><%= tab.name %></button>
+                </form>
+                <form action="/cate_dele" method="POST">
+                  <input type="hidden" name="category_name" value="<%= tab.name %>">
+                  <button class="category-delete" type="submit">✕</button>
+                </form>
+              </div>
             <% } %>
           </div>
           <div class="title-detail-delete">
@@ -46,25 +55,51 @@
                 <p class="todo-title"><%= task.title %></p>
                 <p class="todo-detail"><%= task.detail %></p>
                 <p><%= task.name %></p>
-                <form class="delete" action="/delete" method="post">
-                  <input type="hidden" name="id" value="<%= task.id %>">
-                  <button class="todo-delete" type="submit"><img src="./images/ten.png" width="15px" height="15px"></button>
-                </form>
+
+                <div class="edit" >
+                  <button class="task-edit" type="submit"><img src="./images/edit.png" width="20px" height="20px"></button>
+                </div>
+
+                <div class="delete">
+                  <form action="/delete" method="post">
+                    <input type="hidden" name="id" value="<%= task.id %>">
+                    <button class="task-delete" type="submit"><img src="./images/trash2.png" width="20px" height="20px"></button>
+                  </form>
+                </div>
+                <dialog class="dialog-edit">
+                  <form action="/edit" method="post">
+                    <label class="h1-edit">タスクの編集</label>
+                    <br>
+                    <input class="title-edit" required type="text" name="title" placeholder="何をする?" value="<%= task.title %>">
+                    <br>
+                    <input class="detail-edit" required type="text" name="detail" placeholder="詳細" value="<%= task.detail %>">
+                    <br>
+                    <select class="category-edit" name="category">
+                      <% for(let tab of tabs){ %>
+                        <option value="<%= task.category %>"><%= tab.name %></option>
+                      <% } %>
+                    </select>
+                    <input type="hidden" name="taskid" value="<%= task.id %>">
+                    <br>
+                    <input class="submit" type="submit" value="変更"/>
+                    <input class="cancel" type="button" value="キャンセル">
+                  </form>
+                </dialog>
               </div>
             <% } %>
           </div>
         </div>
       </div>
+
       <div id="plus-form" class="hidden">
         <form action="/tab" method="post">
           <label>タブ名</label>
           <br>
-          <input class="plus-form-input" required type="text" name="plus">
+          <input class="plus-form-input" required type="text" name="plus" placeholder="タブ名を入力">
           <br>
           <button class="plus-form-bottun" type="submit">作成</button>
         </form>
       </div>
-
 
     <% } else { %>
       <h1>Welcome to the TodoApp</h1>
@@ -82,45 +117,23 @@
         } else {
             form.style.display = 'none';
         }
+      });
 
+      const showDialogButtons = document.querySelectorAll('.task-edit');
+    const dialogs = document.querySelectorAll('.dialog-edit');
+    const closeDialogButtons = document.querySelectorAll('.cancel');
 
+    showDialogButtons.forEach((button, index) => {
+      button.addEventListener('click', function() {
+        dialogs[index].showModal();
+      });
+    });
+
+    closeDialogButtons.forEach((button, index) => {
+      button.addEventListener('click', function() {
+        dialogs[index].close();
+      });
     });
     </script>
   </body>
 </html>
-
-
-
-<script type="text/javascript">
-
-  var tabs = document.getElementById('tab').getElementsByTagName('a');
-  var pages = document.getElementById('tabbody').getElementsByTagName('div');
-
-  function changeTab() {
-
-    var targetid = this.href.substring(this.href.indexOf('#') + 1, this.href.length);
-
-    for (var i = 0; i < pages.length; i++) {
-      if (pages[i].id != targetid) {
-        pages[i].style.display = "none";
-      }
-      else {
-        pages[i].style.display = "block";
-      }
-    }
-
-    for (var i = 0; i < tabs.length; i++) {
-      tabs[i].style.zIndex = "0";
-    }
-    this.style.zIndex = "10";
-
-    return false;
-  }
-
-  for (var i = 0; i < tabs.length; i++) {
-    tabs[i].onclick = changeTab;
-  }
-
-  tabs[0].onclick();
-
-</script>
